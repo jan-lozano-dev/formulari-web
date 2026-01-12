@@ -2,6 +2,10 @@
   box-sizing: border-box;
 }
 
+html, body {
+  background: #000000 !important;
+}
+
 :root {
   --size: 90;
   --ar: calc(194.8 / 596.69);
@@ -184,28 +188,3 @@ h1.blurb {
   opacity: 0;
 }
 
-.continue-button {
-  position: fixed;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 15px 30px;
-  background: hsl(58, 91%, 51%);
-  color: black;
-  border: none;
-  border-radius: 8px;
-  font-size: 1.2rem;
-  font-weight: bold;
-  cursor: pointer;
-  z-index: 1000;
-  opacity: 0;
-  transition: opacity 0.5s ease;
-}
-
-.continue-button.visible {
-  opacity: 1;
-}
-
-.continue-button:hover {
-  background: hsl(58, 91%, 60%);
-}

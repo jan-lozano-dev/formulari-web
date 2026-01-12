@@ -12,6 +12,8 @@ export default function MarionetteAnimation({ onAnimationEnd }: MarionetteAnimat
   const containerRef = useRef<HTMLDivElement>(null);
   const scriptsLoaded = useRef(0);
   const initialized = useRef(false);
+  const onAnimationEndRef = useRef(onAnimationEnd);
+  onAnimationEndRef.current = onAnimationEnd;
 
   const initAnimation = () => {
     if (initialized.current) return;
@@ -167,20 +169,18 @@ export default function MarionetteAnimation({ onAnimationEnd }: MarionetteAnimat
     const totalHeight = BUFF_FIVE + BLURB_FOUR.length * INC + INC + PADDING + window.innerHeight;
     document.body.style.height = `${totalHeight}px`;
 
-    // Show continue button when scrolled to end
-    const continueBtn = document.querySelector('.continue-button');
-    if (continueBtn) {
-      gsap.to(continueBtn, {
-        scrollTrigger: {
-          scrub: true,
-          start: () => BUFF_FIVE + BLURB_FOUR.length * INC,
-          end: () => BUFF_FIVE + BLURB_FOUR.length * INC + 100,
-          onEnter: () => continueBtn.classList.add('visible'),
-          onLeaveBack: () => continueBtn.classList.remove('visible'),
-        },
-        opacity: 1,
-      });
-    }
+    // Trigger form when scrolled to end
+    const endTrigger = document.createElement('div');
+    endTrigger.className = 'end-trigger';
+    document.body.appendChild(endTrigger);
+
+    (ScrollTrigger as { create: (config: object) => void }).create({
+      trigger: endTrigger,
+      start: () => BUFF_FIVE + BLURB_FOUR.length * INC + PADDING,
+      onEnter: () => {
+        onAnimationEndRef.current();
+      },
+    });
   };
 
   const handleScriptLoad = () => {
@@ -295,10 +295,6 @@ export default function MarionetteAnimation({ onAnimationEnd }: MarionetteAnimat
             <h1 className="blurb blurb--four" data-splitting="">Avui nit tranquileta, zero alcohol!</h1>
           </div>
         </div>
-
-        <button className="continue-button" onClick={onAnimationEnd}>
-          Continuar al formulari
-        </button>
       </div>
     </>
   );
