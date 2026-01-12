@@ -101,47 +101,42 @@ html, body {
 }
 
 .marionette__container {
+  width: var(--width);
   position: fixed;
+  height: var(--height);
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%) scale(0);
-  transform-origin: 50% 50%;
-}
-
-.pollastre {
-  height: 70vmin;
-  width: auto;
-  max-width: 90vw;
+  transform-origin: 90% 50%;
 }
 
 .marionette__nose {
   position: absolute;
-  top: 22%;
-  left: 38%;
+  top: 36%;
+  right: 15.5%;
   width: 0;
-  height: 1.5vmin;
-  background: #333;
-  transform: rotate(-5deg);
-  transform-origin: left center;
+  height: 2.5vmin;
+  background: var(--nose);
 }
 
 .marionette__nose:after,
 .marionette__nose:before {
   content: '';
   position: absolute;
-  height: 1.5vmin;
-  width: 1.5vmin;
+  height: 2.5vmin;
+  width: 2.5vmin;
   border-radius: 50%;
-  background: #333;
+  background: var(--nose);
 }
 
 .marionette__nose:after {
-  right: -0.75vmin;
-  top: 0;
+  left: 0;
+  transform: translate(-50%, 0);
 }
 
 .marionette__nose:before {
-  display: none;
+  transform: translate(50%, 0);
+  right: 0;
 }
 
 h1.blurb {
