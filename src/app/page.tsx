@@ -57,7 +57,7 @@ export default function Home() {
     <main className="min-h-screen flex items-center justify-center bg-black p-4">
       <div className="w-full max-w-md bg-black border border-white rounded-lg p-8">
         <h1 className="text-2xl font-bold text-center text-white mb-6">
-          Formulari de Registre
+          12/02, XX:XX,???
         </h1>
 
         {message && (
@@ -84,7 +84,7 @@ export default function Home() {
               onChange={(e) => setFormData({ ...formData, nom: e.target.value })}
               required
               className="w-full px-3 py-2 border border-white rounded-md bg-black text-white focus:outline-none focus:ring-2 focus:ring-white placeholder-gray-500"
-              placeholder="El teu nom"
+              placeholder="hola"
             />
           </div>
 
@@ -99,7 +99,7 @@ export default function Home() {
               onChange={(e) => setFormData({ ...formData, cognoms: e.target.value })}
               required
               className="w-full px-3 py-2 border border-white rounded-md bg-black text-white focus:outline-none focus:ring-2 focus:ring-white placeholder-gray-500"
-              placeholder="Els teus cognoms"
+              placeholder="Corre a apuntarte..."
             />
           </div>
 
@@ -115,7 +115,7 @@ export default function Home() {
               required
               pattern="[0-9]*"
               className="w-full px-3 py-2 border border-white rounded-md bg-black text-white focus:outline-none focus:ring-2 focus:ring-white placeholder-gray-500"
-              placeholder="123456789"
+              placeholder="Escriu el teu numero bé..."
             />
           </div>
 
