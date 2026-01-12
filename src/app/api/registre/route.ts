@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { sql } from "@/lib/db";
+import { getDb } from "@/lib/db";
 
 export async function POST(request: NextRequest) {
   try {
@@ -20,6 +20,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    const sql = getDb();
     await sql`
       INSERT INTO registres (nom, cognoms, telefon)
       VALUES (${nom}, ${cognoms}, ${telefon})
@@ -40,6 +41,7 @@ export async function POST(request: NextRequest) {
 
 export async function GET() {
   try {
+    const sql = getDb();
     const registres = await sql`SELECT * FROM registres ORDER BY created_at DESC`;
     return NextResponse.json(registres);
   } catch (error) {
