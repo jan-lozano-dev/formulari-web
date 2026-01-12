@@ -166,7 +166,8 @@ export default function MarionetteAnimation({ onAnimationEnd }: MarionetteAnimat
     const EYES = document.querySelectorAll('.marionette__eye');
     EYES.forEach((eye) => blink(eye));
 
-    const totalHeight = BUFF_FIVE + BLURB_FOUR.length * INC + INC + PADDING + window.innerHeight;
+    const END_PADDING = 800;
+    const totalHeight = BUFF_FIVE + BLURB_FOUR.length * INC + INC + END_PADDING + window.innerHeight;
     document.body.style.height = `${totalHeight}px`;
 
     // Trigger form when scrolled to end
@@ -176,7 +177,7 @@ export default function MarionetteAnimation({ onAnimationEnd }: MarionetteAnimat
 
     (ScrollTrigger as { create: (config: object) => void }).create({
       trigger: endTrigger,
-      start: () => BUFF_FIVE + BLURB_FOUR.length * INC + PADDING,
+      start: () => BUFF_FIVE + BLURB_FOUR.length * INC + END_PADDING,
       onEnter: () => {
         onAnimationEndRef.current();
       },

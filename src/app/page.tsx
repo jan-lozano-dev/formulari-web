@@ -54,18 +54,18 @@ export default function Home() {
   }
 
   return (
-    <main className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
-      <div className="w-full max-w-md bg-white rounded-lg shadow-md p-8">
-        <h1 className="text-2xl font-bold text-center text-gray-800 mb-6">
+    <main className="min-h-screen flex items-center justify-center bg-black p-4">
+      <div className="w-full max-w-md bg-black border border-white rounded-lg p-8">
+        <h1 className="text-2xl font-bold text-center text-white mb-6">
           Formulari de Registre
         </h1>
 
         {message && (
           <div
-            className={`mb-4 p-3 rounded ${
+            className={`mb-4 p-3 rounded border ${
               message.type === "success"
-                ? "bg-green-100 text-green-700"
-                : "bg-red-100 text-red-700"
+                ? "border-white text-white"
+                : "border-gray-500 text-gray-300"
             }`}
           >
             {message.text}
@@ -74,7 +74,7 @@ export default function Home() {
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label htmlFor="nom" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="nom" className="block text-sm font-medium text-white mb-1">
               Nom
             </label>
             <input
@@ -83,13 +83,13 @@ export default function Home() {
               value={formData.nom}
               onChange={(e) => setFormData({ ...formData, nom: e.target.value })}
               required
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
+              className="w-full px-3 py-2 border border-white rounded-md bg-black text-white focus:outline-none focus:ring-2 focus:ring-white placeholder-gray-500"
               placeholder="El teu nom"
             />
           </div>
 
           <div>
-            <label htmlFor="cognoms" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="cognoms" className="block text-sm font-medium text-white mb-1">
               Cognoms
             </label>
             <input
@@ -98,13 +98,13 @@ export default function Home() {
               value={formData.cognoms}
               onChange={(e) => setFormData({ ...formData, cognoms: e.target.value })}
               required
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
+              className="w-full px-3 py-2 border border-white rounded-md bg-black text-white focus:outline-none focus:ring-2 focus:ring-white placeholder-gray-500"
               placeholder="Els teus cognoms"
             />
           </div>
 
           <div>
-            <label htmlFor="telefon" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="telefon" className="block text-sm font-medium text-white mb-1">
               Numero de telefon
             </label>
             <input
@@ -114,7 +114,7 @@ export default function Home() {
               onChange={(e) => setFormData({ ...formData, telefon: e.target.value })}
               required
               pattern="[0-9]*"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
+              className="w-full px-3 py-2 border border-white rounded-md bg-black text-white focus:outline-none focus:ring-2 focus:ring-white placeholder-gray-500"
               placeholder="123456789"
             />
           </div>
@@ -122,7 +122,7 @@ export default function Home() {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            className="w-full bg-white text-black py-2 px-4 rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-black disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
           >
             {isSubmitting ? "Enviant..." : "Enviar"}
           </button>
