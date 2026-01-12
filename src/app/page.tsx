@@ -1,8 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useCallback } from "react";
+import MarionetteAnimation from "@/components/MarionetteAnimation";
 
 export default function Home() {
+  const [showAnimation, setShowAnimation] = useState(true);
   const [formData, setFormData] = useState({
     nom: "",
     cognoms: "",
@@ -10,6 +12,10 @@ export default function Home() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
+
+  const handleAnimationEnd = useCallback(() => {
+    setShowAnimation(false);
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -42,6 +48,10 @@ export default function Home() {
       setIsSubmitting(false);
     }
   };
+
+  if (showAnimation) {
+    return <MarionetteAnimation onAnimationEnd={handleAnimationEnd} />;
+  }
 
   return (
     <main className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
