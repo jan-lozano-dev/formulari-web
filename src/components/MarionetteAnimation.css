@@ -196,8 +196,8 @@ h1.blurb {
   font-size: 0.75rem;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.15);
-  font-weight: 300;
+  color: rgba(255, 255, 255, 0.3);
+  font-weight: 500;
   pointer-events: none;
   transition: opacity 0.3s ease-out;
 }
