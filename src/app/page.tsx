@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useCallback } from "react";
+import Image from "next/image";
 import MarionetteAnimation from "@/components/MarionetteAnimation";
 
 export default function Home() {
@@ -12,6 +13,7 @@ export default function Home() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
+  const [showFinalPhoto, setShowFinalPhoto] = useState(false);
 
   const handleAnimationEnd = useCallback(() => {
     setShowAnimation(false);
@@ -36,8 +38,7 @@ export default function Home() {
       });
 
       if (response.ok) {
-        setMessage({ type: "success", text: "Registre completat correctament!" });
-        setFormData({ nom: "", cognoms: "", telefon: "" });
+        setShowFinalPhoto(true);
       } else {
         const error = await response.json();
         setMessage({ type: "error", text: error.message || "Error en el registre" });
@@ -51,6 +52,21 @@ export default function Home() {
 
   if (showAnimation) {
     return <MarionetteAnimation onAnimationEnd={handleAnimationEnd} />;
+  }
+
+  if (showFinalPhoto) {
+    return (
+      <main className="min-h-screen flex items-center justify-center bg-black p-4">
+        <Image
+          src="/foto-final.png"
+          alt="Registre completat"
+          width={500}
+          height={500}
+          className="max-w-full h-auto"
+          priority
+        />
+      </main>
+    );
   }
 
   return (
@@ -118,6 +134,10 @@ export default function Home() {
               placeholder="Escriu el teu numero bé..."
             />
           </div>
+
+          <p className="text-xs text-gray-400 text-center">
+            Festa privada. +18. 10€ per la comuna de la barra lliure.
+          </p>
 
           <button
             type="submit"

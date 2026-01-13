@@ -7,6 +7,13 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Formulari de Registre",
   description: "Formulari senzill de registre",
+  icons: {
+    icon: "/Icon_website.png",
+    apple: "/Icon_website.png",
+  },
+  openGraph: {
+    images: ["/Icon_website.png"],
+  },
 };
 
 export default function RootLayout({
