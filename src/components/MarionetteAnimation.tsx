@@ -234,7 +234,7 @@ export default function MarionetteAnimation({ onAnimationEnd }: MarionetteAnimat
       />
 
       <div className="marionette-page" ref={containerRef}>
-        <div className="scroll-hint">Scroll</div>
+        <div className="scroll-hint">Scroll cap abaix...</div>
         <div className="marionette__container">
           <svg className="marionette" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 306.4384 100.049">
             <g transform="translate(168.1994 -94.4993)">
