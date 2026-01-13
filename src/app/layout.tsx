@@ -19,19 +19,19 @@ export const metadata: Metadata = {
     siteName: "Huerto",
     images: [
       {
-        url: "https://huerto.info/Icon_website.png",
-        width: 1024,
-        height: 1024,
+        url: "https://huerto.info/og-image.jpg",
+        width: 1200,
+        height: 630,
         alt: "Huerto",
       },
     ],
     type: "website",
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: "Inscripció huerto",
     description: "Huerto Carnaval 12/02",
-    images: ["https://huerto.info/Icon_website.png"],
+    images: ["https://huerto.info/og-image.jpg"],
   },
 };
 
