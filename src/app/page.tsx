@@ -36,6 +36,7 @@ function Countdown() {
 
   return (
     <div className="text-white text-center mt-6">
+      <p className="text-sm text-gray-400 mb-2">Queda...</p>
       <div className="flex justify-center gap-4 text-2xl font-bold">
         <div className="flex flex-col items-center">
           <span>{timeLeft.days}</span>
