@@ -14,6 +14,7 @@ export default function Home() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
   const [showFinalPhoto, setShowFinalPhoto] = useState(false);
+  const [phoneError, setPhoneError] = useState<string | null>(null);
 
   const handleAnimationEnd = useCallback(() => {
     setShowAnimation(false);
@@ -23,6 +24,7 @@ export default function Home() {
     e.preventDefault();
     setIsSubmitting(true);
     setMessage(null);
+    setPhoneError(null);
 
     try {
       const response = await fetch("/api/registre", {
@@ -41,7 +43,11 @@ export default function Home() {
         setShowFinalPhoto(true);
       } else {
         const error = await response.json();
-        setMessage({ type: "error", text: error.message || "Error en el registre" });
+        if (error.code === "PHONE_EXISTS") {
+          setPhoneError(error.message);
+        } else {
+          setMessage({ type: "error", text: error.message || "Error en el registre" });
+        }
       }
     } catch {
       setMessage({ type: "error", text: "Error de connexió" });
@@ -127,12 +133,18 @@ export default function Home() {
               type="tel"
               id="telefon"
               value={formData.telefon}
-              onChange={(e) => setFormData({ ...formData, telefon: e.target.value })}
+              onChange={(e) => {
+                setFormData({ ...formData, telefon: e.target.value });
+                setPhoneError(null);
+              }}
               required
               pattern="[0-9]*"
               className="w-full px-3 py-2 border border-white rounded-md bg-black text-white focus:outline-none focus:ring-2 focus:ring-white placeholder-gray-500"
               placeholder="Escriu el teu numero bé..."
             />
+            {phoneError && (
+              <p className="text-red-500 text-sm mt-1">{phoneError}</p>
+            )}
           </div>
 
           <p className="text-xs text-gray-400 text-center">

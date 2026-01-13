@@ -21,6 +21,19 @@ export async function POST(request: NextRequest) {
     }
 
     const sql = getDb();
+
+    // Verificar si el teléfono ya existe
+    const existing = await sql`
+      SELECT id FROM registres WHERE telefon = ${telefon}
+    `;
+
+    if (existing.length > 0) {
+      return NextResponse.json(
+        { message: "Número de telèfon ja inscrit.", code: "PHONE_EXISTS" },
+        { status: 409 }
+      );
+    }
+
     await sql`
       INSERT INTO registres (nom, cognoms, telefon)
       VALUES (${nom}, ${cognoms}, ${telefon})
