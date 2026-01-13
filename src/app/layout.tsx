@@ -5,6 +5,7 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://huerto.info"),
   title: "Formulari de Registre",
   description: "Formulari senzill de registre",
   icons: {
@@ -12,7 +13,19 @@ export const metadata: Metadata = {
     apple: "/Icon_website.png",
   },
   openGraph: {
-    images: ["/Icon_website.png"],
+    title: "Formulari de Registre",
+    description: "Formulari senzill de registre",
+    url: "https://huerto.info",
+    siteName: "Huerto",
+    images: [
+      {
+        url: "/Icon_website.png",
+        width: 800,
+        height: 800,
+        alt: "Huerto",
+      },
+    ],
+    type: "website",
   },
 };
 
