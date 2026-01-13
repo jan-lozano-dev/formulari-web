@@ -188,3 +188,17 @@ h1.blurb {
   opacity: 0;
 }
 
+.scroll-hint {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.75rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.15);
+  font-weight: 300;
+  pointer-events: none;
+  transition: opacity 0.3s ease-out;
+}
+

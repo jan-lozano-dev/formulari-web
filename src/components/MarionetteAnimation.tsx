@@ -38,6 +38,16 @@ export default function MarionetteAnimation({ onAnimationEnd }: MarionetteAnimat
     gsap.registerPlugin(ScrollTrigger);
     window.scrollTo(0, 0);
 
+    // Hide scroll hint on first scroll
+    const scrollHint = document.querySelector('.scroll-hint') as HTMLElement;
+    if (scrollHint) {
+      const hideScrollHint = () => {
+        scrollHint.style.opacity = '0';
+        window.removeEventListener('scroll', hideScrollHint);
+      };
+      window.addEventListener('scroll', hideScrollHint);
+    }
+
     const NOSE = document.querySelector('.marionette__nose');
     const CONTAINER = document.querySelector('.marionette__container');
     const MOUTH = document.querySelector('.marionette__mouth');
@@ -224,6 +234,7 @@ export default function MarionetteAnimation({ onAnimationEnd }: MarionetteAnimat
       />
 
       <div className="marionette-page" ref={containerRef}>
+        <div className="scroll-hint">Scroll</div>
         <div className="marionette__container">
           <svg className="marionette" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 306.4384 100.049">
             <g transform="translate(168.1994 -94.4993)">
