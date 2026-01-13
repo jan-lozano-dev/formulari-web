@@ -20,6 +20,15 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Validar format telèfon espanyol (9 dígits, comença per 6, 7 o 9)
+    const telefonStr = telefon.toString();
+    if (!/^[679]\d{8}$/.test(telefonStr)) {
+      return NextResponse.json(
+        { message: "Número invàlid. Ha de tenir 9 dígits i començar per 6, 7 o 9.", code: "INVALID_PHONE" },
+        { status: 400 }
+      );
+    }
+
     const sql = getDb();
 
     // Verificar si el teléfono ya existe

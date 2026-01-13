@@ -1,8 +1,66 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import Image from "next/image";
 import MarionetteAnimation from "@/components/MarionetteAnimation";
+
+function isValidSpanishPhone(phone: string): boolean {
+  const cleaned = phone.replace(/\s/g, "");
+  return /^[679]\d{8}$/.test(cleaned);
+}
+
+function Countdown() {
+  const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+
+  useEffect(() => {
+    const targetDate = new Date("2026-02-12T00:00:00").getTime();
+
+    const updateCountdown = () => {
+      const now = new Date().getTime();
+      const difference = targetDate - now;
+
+      if (difference > 0) {
+        setTimeLeft({
+          days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+          hours: Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+          minutes: Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60)),
+          seconds: Math.floor((difference % (1000 * 60)) / 1000),
+        });
+      }
+    };
+
+    updateCountdown();
+    const interval = setInterval(updateCountdown, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div className="text-white text-center mt-6">
+      <p className="text-sm text-gray-400 mb-2">Queda...</p>
+      <div className="flex justify-center gap-4 text-2xl font-bold">
+        <div className="flex flex-col items-center">
+          <span>{timeLeft.days}</span>
+          <span className="text-xs text-gray-400">dies</span>
+        </div>
+        <span>:</span>
+        <div className="flex flex-col items-center">
+          <span>{String(timeLeft.hours).padStart(2, "0")}</span>
+          <span className="text-xs text-gray-400">hores</span>
+        </div>
+        <span>:</span>
+        <div className="flex flex-col items-center">
+          <span>{String(timeLeft.minutes).padStart(2, "0")}</span>
+          <span className="text-xs text-gray-400">min</span>
+        </div>
+        <span>:</span>
+        <div className="flex flex-col items-center">
+          <span>{String(timeLeft.seconds).padStart(2, "0")}</span>
+          <span className="text-xs text-gray-400">seg</span>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default function Home() {
   const [showAnimation, setShowAnimation] = useState(true);
@@ -22,9 +80,15 @@ export default function Home() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitting(true);
     setMessage(null);
     setPhoneError(null);
+
+    if (!isValidSpanishPhone(formData.telefon)) {
+      setPhoneError("Número invàlid. Ha de tenir 9 dígits i començar per 6, 7 o 9.");
+      return;
+    }
+
+    setIsSubmitting(true);
 
     try {
       const response = await fetch("/api/registre", {
@@ -62,7 +126,7 @@ export default function Home() {
 
   if (showFinalPhoto) {
     return (
-      <main className="min-h-screen flex items-center justify-center bg-black p-4">
+      <main className="min-h-screen flex flex-col items-center justify-center bg-black p-4">
         <Image
           src="/foto-final.png"
           alt="Registre completat"
@@ -71,6 +135,7 @@ export default function Home() {
           className="max-w-full h-auto"
           priority
         />
+        <Countdown />
       </main>
     );
   }
