@@ -6,26 +6,32 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://huerto.info"),
-  title: "Formulari de Registre",
-  description: "Formulari senzill de registre",
+  title: "Inscripció huerto",
+  description: "Huerto Carnaval 12/02",
   icons: {
     icon: "/Icon_website.png",
     apple: "/Icon_website.png",
   },
   openGraph: {
-    title: "Formulari de Registre",
-    description: "Formulari senzill de registre",
+    title: "Inscripció huerto",
+    description: "Huerto Carnaval 12/02",
     url: "https://huerto.info",
     siteName: "Huerto",
     images: [
       {
-        url: "/Icon_website.png",
-        width: 800,
-        height: 800,
+        url: "https://huerto.info/Icon_website.png",
+        width: 1024,
+        height: 1024,
         alt: "Huerto",
       },
     ],
     type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: "Inscripció huerto",
+    description: "Huerto Carnaval 12/02",
+    images: ["https://huerto.info/Icon_website.png"],
   },
 };
 
