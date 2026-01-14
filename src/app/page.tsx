@@ -224,12 +224,12 @@ export default function Home() {
             {isSubmitting ? "Enviant..." : "Enviar"}
           </button>
         </form>
-        <p className="text-[10px] text-gray-400 text-center mt-3">
-          10€ primers 40 inscrits/es.<br />
-          12€ 40-&gt;80 inscrits/es.<br />
-          15€ inscrits/es posterior.
-        </p>
       </div>
+      <p className="text-[10px] text-gray-400 text-center mt-4">
+        10€ primers 40 inscrits/es.<br />
+        12€ 40-&gt;80 inscrits/es.<br />
+        15€ inscrits/es posterior.
+      </p>
     </main>
   );
 }
