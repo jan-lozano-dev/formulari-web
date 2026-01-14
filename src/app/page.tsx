@@ -213,7 +213,10 @@ export default function Home() {
           </div>
 
           <p className="text-xs text-gray-400 text-center">
-            Festa privada. +18. 10€ per la comuna de la barra lliure.
+            Festa privada. +18. Informació comuna alcohol:<br />
+            10€ primers 40 inscrits/es.<br />
+            12€ 40-&gt;80 inscrits.<br />
+            Inscrits posterior a 80, 15€.
           </p>
 
           <button
