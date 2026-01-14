@@ -213,7 +213,7 @@ export default function Home() {
           </div>
 
           <p className="text-xs text-gray-400 text-center">
-            Festa privada. +18. Informació comuna alcohol:
+            Festa privada. +18.
           </p>
 
           <button
