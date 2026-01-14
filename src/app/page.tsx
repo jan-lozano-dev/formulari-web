@@ -213,10 +213,12 @@ export default function Home() {
           </div>
 
           <p className="text-xs text-gray-400 text-center">
-            Festa privada. +18. Informació comuna alcohol:<br />
+            Festa privada. +18. Informació comuna alcohol:
+          </p>
+          <p className="text-[10px] text-gray-400 text-center">
             10€ primers 40 inscrits/es.<br />
-            12€ 40-&gt;80 inscrits.<br />
-            Inscrits posterior a 80, 15€.
+            12€ 40-&gt;80 inscrits/es.<br />
+            15€ inscrits/es posterior.
           </p>
 
           <button
