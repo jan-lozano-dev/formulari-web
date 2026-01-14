@@ -141,7 +141,7 @@ export default function Home() {
   }
 
   return (
-    <main className="min-h-screen flex items-center justify-center bg-black p-4">
+    <main className="min-h-screen flex flex-col items-center justify-center bg-black p-4">
       <div className="w-full max-w-md bg-black border border-white rounded-lg p-8">
         <h1 className="text-2xl font-bold text-center text-white mb-6">
           12/02, XX:XX,???
