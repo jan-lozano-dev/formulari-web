@@ -304,7 +304,7 @@ export default function MarionetteAnimation({ onAnimationEnd }: MarionetteAnimat
           </div>
           <div className="story__content story__content--bottom">
             <h1 className="blurb blurb--two" data-splitting="">només vaig a el &quot;huerto&quot;.</h1>
-            <h1 className="blurb blurb--four" data-splitting="">Avui nit tranquileta, zero alcohol!</h1>
+            <h1 className="blurb blurb--four" data-splitting="">Avui nit tranquil·leta, zero alcohol!</h1>
           </div>
         </div>
       </div>
