@@ -225,7 +225,7 @@ export default function Home() {
           </button>
         </form>
       </div>
-      <p className="text-[10px] text-gray-400 text-center mt-4">
+      <p className="text-sm text-gray-400 text-center mt-4">
         15€ barra lliure, s'està omplint...
       </p>
     </main>
