@@ -147,7 +147,7 @@ export default function Home() {
     <main className="min-h-screen flex flex-col items-center justify-center bg-black p-4">
       <div className="w-full max-w-md bg-black border border-white rounded-lg p-8">
         <h1 className="text-2xl font-bold text-center text-white mb-6">
-          12/03: Axerum Vilanova, 22:30
+          Axerum Vilanova: 12/03, 22:30
         </h1>
 
         {message && (
@@ -250,7 +250,7 @@ export default function Home() {
         </form>
       </div>
       <p className="text-sm text-gray-400 text-center mt-4">
-        Entrada gratuïta abans de les 12 amb inscripció.<br />
+        Entrada gratuïta abans de les 12 amb inscripció i carnet universitàri.<br />
         2x1 en cubates abans de les 00:00.
       </p>
     </main>
