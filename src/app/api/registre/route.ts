@@ -4,12 +4,14 @@ import { isRateLimited } from "@/lib/rateLimit";
 import { MAX_CAPACITY } from "@/lib/constants";
 
 export async function POST(request: NextRequest) {
-  // Rate limit by IP — prevents spam registrations
+  const sql = getDb();
+
+  // DB-backed rate limit by IP — works across serverless instances
   const ip = request.headers.get("x-forwarded-for")?.split(",")[0] ?? "unknown";
-  if (isRateLimited(ip)) {
+  if (await isRateLimited(ip, sql)) {
     return NextResponse.json(
       { message: "Massa intents. Torna a intentar-ho en uns minuts." },
-      { status: 429 }
+      { status: 429, headers: { "Retry-After": "60" } }
     );
   }
 
@@ -60,8 +62,6 @@ export async function POST(request: NextRequest) {
         { status: 400 }
       );
     }
-
-    const sql = getDb();
 
     // Check capacity before running uniqueness queries
     const [{ count }] = await sql`SELECT COUNT(*)::int AS count FROM registres`;

@@ -13,7 +13,7 @@ const TARGET_DATE = new Date("2026-03-12T22:30:00+01:00").getTime();
 
 function calcTimeLeft() {
   const diff = TARGET_DATE - Date.now();
-  if (diff <= 0) return { days: 0, hours: 0, minutes: 0, seconds: 0 };
+  if (diff <= 0) return null; // null signals the event has started
   return {
     days: Math.floor(diff / (1000 * 60 * 60 * 24)),
     hours: Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
@@ -30,6 +30,10 @@ function Countdown() {
     const interval = setInterval(() => setTimeLeft(calcTimeLeft()), 1000);
     return () => clearInterval(interval);
   }, []);
+
+  if (!timeLeft) {
+    return <p className="text-white text-center mt-6 text-lg font-bold">Gaudeix de la festa!</p>;
+  }
 
   return (
     <div className="text-white text-center mt-6">
@@ -108,9 +112,7 @@ export default function Home() {
     try {
       const response = await fetch("/api/registre", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           nom: formData.nom,
           cognoms: formData.cognoms,
@@ -121,6 +123,8 @@ export default function Home() {
       });
 
       if (response.ok) {
+        // Decrement remaining locally so the count stays accurate without a refetch
+        setRemaining((r) => (r !== null ? r - 1 : null));
         setShowFinalPhoto(true);
       } else {
         const error = await response.json();
@@ -160,7 +164,6 @@ export default function Home() {
           width={500}
           height={500}
           className="max-w-full h-auto"
-          priority
         />
         <Countdown />
       </main>
@@ -175,12 +178,13 @@ export default function Home() {
         </h1>
         {remaining !== null && (
           <p className={`text-center text-sm mb-4 ${remaining < 50 ? "text-red-400" : "text-gray-400"}`}>
-            {remaining < 50 ? `⚠ Queden ${remaining} llocs!` : `Queden ${remaining} llocs`}
+            {remaining < 50 ? `Queden ${remaining} llocs!` : `Queden ${remaining} llocs`}
           </p>
         )}
 
         {message && (
           <div
+            role="alert"
             className={`mb-4 p-3 rounded border ${
               message.type === "success"
                 ? "border-white text-white"
@@ -203,6 +207,7 @@ export default function Home() {
               onChange={(e) => setFormData({ ...formData, nom: e.target.value })}
               required
               maxLength={100}
+              autoComplete="given-name"
               className="w-full px-3 py-2 border border-white rounded-md bg-black text-white focus:outline-none focus:ring-2 focus:ring-white placeholder-gray-500"
               placeholder="Joan"
             />
@@ -219,6 +224,7 @@ export default function Home() {
               onChange={(e) => setFormData({ ...formData, cognoms: e.target.value })}
               required
               maxLength={100}
+              autoComplete="family-name"
               className="w-full px-3 py-2 border border-white rounded-md bg-black text-white focus:outline-none focus:ring-2 focus:ring-white placeholder-gray-500"
               placeholder="Corre a apuntar-te..."
             />
@@ -238,12 +244,15 @@ export default function Home() {
               }}
               required
               maxLength={12}
-              pattern="[0-9 ]*"
+              inputMode="numeric"
+              autoComplete="tel"
+              aria-invalid={!!phoneError}
+              aria-describedby={phoneError ? "telefon-error" : undefined}
               className="w-full px-3 py-2 border border-white rounded-md bg-black text-white focus:outline-none focus:ring-2 focus:ring-white placeholder-gray-500"
               placeholder="Escriu el teu número bé..."
             />
             {phoneError && (
-              <p className="text-red-500 text-sm mt-1">{phoneError}</p>
+              <p id="telefon-error" role="alert" className="text-red-500 text-sm mt-1">{phoneError}</p>
             )}
           </div>
 
@@ -261,11 +270,14 @@ export default function Home() {
               }}
               required
               maxLength={254}
+              autoComplete="email"
+              aria-invalid={!!emailError}
+              aria-describedby={emailError ? "email-error" : undefined}
               className="w-full px-3 py-2 border border-white rounded-md bg-black text-white focus:outline-none focus:ring-2 focus:ring-white placeholder-gray-500"
               placeholder="nom@exemple.com"
             />
             {emailError && (
-              <p className="text-red-500 text-sm mt-1">{emailError}</p>
+              <p id="email-error" role="alert" className="text-red-500 text-sm mt-1">{emailError}</p>
             )}
           </div>
 
