@@ -9,8 +9,8 @@ export const metadata: Metadata = {
   title: "Inscripció huerto",
   description: "Axerum Vilanova: 12/03, 22:30",
   icons: {
-    icon: "/Icon_website.png",
-    apple: "/Icon_website.png",
+    icon: "/logoAxerumPetit.jpeg",
+    apple: "/logoAxerumPetit.jpeg",
   },
   openGraph: {
     title: "Inscripció huerto",
@@ -19,9 +19,7 @@ export const metadata: Metadata = {
     siteName: "Huerto",
     images: [
       {
-        url: "https://huerto.info/og-image.jpg?v=2",
-        width: 1200,
-        height: 630,
+        url: "https://huerto.info/logoAxerumPetit.jpeg",
         alt: "Huerto",
       },
     ],
@@ -31,7 +29,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Inscripció huerto",
     description: "Axerum Vilanova: 12/03, 22:30",
-    images: ["https://huerto.info/og-image.jpg?v=2"],
+    images: ["https://huerto.info/logoAxerumPetit.jpeg"],
   },
 };
 
