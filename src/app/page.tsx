@@ -164,7 +164,7 @@ export default function Home() {
     return (
       <main className="min-h-screen flex flex-col items-center justify-center bg-black p-4">
         <Image
-          src="/fotoAxerumGran.jpeg"
+          src="/fotoAxerumGranFinal.jpeg"
           alt="Registre completat"
           width={500}
           height={500}

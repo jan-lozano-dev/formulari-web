@@ -9,8 +9,8 @@ export const metadata: Metadata = {
   title: "Inscripció huerto",
   description: "Axerum Vilanova: 12/03, 22:30",
   icons: {
-    icon: "/logoAxerumPetit.jpeg",
-    apple: "/logoAxerumPetit.jpeg",
+    icon: "/favicon-circle.png",
+    apple: "/favicon-circle.png",
   },
   openGraph: {
     title: "Inscripció huerto",
