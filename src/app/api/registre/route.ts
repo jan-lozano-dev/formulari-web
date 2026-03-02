@@ -8,7 +8,7 @@ export async function POST(request: NextRequest) {
 
     if (!nom || !cognoms || telefon === undefined || !email) {
       return NextResponse.json(
-        { message: "Tots els camps son obligatoris" },
+        { message: "Tots els camps són obligatoris" },
         { status: 400 }
       );
     }
@@ -22,7 +22,7 @@ export async function POST(request: NextRequest) {
 
     if (typeof telefon !== "number" || isNaN(telefon)) {
       return NextResponse.json(
-        { message: "El numero de telefon ha de ser un numero valid" },
+        { message: "El número de telèfon ha de ser un número vàlid" },
         { status: 400 }
       );
     }

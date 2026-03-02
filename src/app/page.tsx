@@ -189,13 +189,13 @@ export default function Home() {
               onChange={(e) => setFormData({ ...formData, cognoms: e.target.value })}
               required
               className="w-full px-3 py-2 border border-white rounded-md bg-black text-white focus:outline-none focus:ring-2 focus:ring-white placeholder-gray-500"
-              placeholder="Corre a apuntarte..."
+              placeholder="Corre a apuntar-te..."
             />
           </div>
 
           <div>
             <label htmlFor="telefon" className="block text-sm font-medium text-white mb-1">
-              Numero de telefon
+              Número de telèfon
             </label>
             <input
               type="tel"
@@ -208,7 +208,7 @@ export default function Home() {
               required
               pattern="[0-9]*"
               className="w-full px-3 py-2 border border-white rounded-md bg-black text-white focus:outline-none focus:ring-2 focus:ring-white placeholder-gray-500"
-              placeholder="Escriu el teu numero bé..."
+              placeholder="Escriu el teu número bé..."
             />
             {phoneError && (
               <p className="text-red-500 text-sm mt-1">{phoneError}</p>
@@ -250,7 +250,7 @@ export default function Home() {
         </form>
       </div>
       <p className="text-sm text-gray-400 text-center mt-4">
-        Entrada gratuïta abans de les 12 amb inscripció i carnet universitàri.<br />
+        Entrada gratuïta abans de les 12 amb inscripció i carnet universitari.<br />
         2x1 en cubates abans de les 00:00.
       </p>
     </main>
