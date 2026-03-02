@@ -4,11 +4,18 @@ import { getDb } from "@/lib/db";
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { nom, cognoms, telefon } = body;
+    const { nom, cognoms, telefon, email } = body;
 
-    if (!nom || !cognoms || telefon === undefined) {
+    if (!nom || !cognoms || telefon === undefined || !email) {
       return NextResponse.json(
         { message: "Tots els camps son obligatoris" },
+        { status: 400 }
+      );
+    }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      return NextResponse.json(
+        { message: "Correu electrònic invàlid." },
         { status: 400 }
       );
     }
@@ -44,8 +51,8 @@ export async function POST(request: NextRequest) {
     }
 
     await sql`
-      INSERT INTO registres (nom, cognoms, telefon)
-      VALUES (${nom}, ${cognoms}, ${telefon})
+      INSERT INTO registres (nom, cognoms, telefon, email)
+      VALUES (${nom}, ${cognoms}, ${telefon}, ${email})
     `;
 
     return NextResponse.json(

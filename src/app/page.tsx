@@ -1,8 +1,7 @@
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
-import MarionetteAnimation from "@/components/MarionetteAnimation";
 
 function isValidSpanishPhone(phone: string): boolean {
   const cleaned = phone.replace(/\s/g, "");
@@ -63,30 +62,37 @@ function Countdown() {
 }
 
 export default function Home() {
-  const [showAnimation, setShowAnimation] = useState(true);
   const [formData, setFormData] = useState({
     nom: "",
     cognoms: "",
     telefon: "",
+    email: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
   const [showFinalPhoto, setShowFinalPhoto] = useState(false);
   const [phoneError, setPhoneError] = useState<string | null>(null);
-
-  const handleAnimationEnd = useCallback(() => {
-    setShowAnimation(false);
-  }, []);
+  const [emailError, setEmailError] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setMessage(null);
     setPhoneError(null);
+    setEmailError(null);
+
+    let hasError = false;
 
     if (!isValidSpanishPhone(formData.telefon)) {
       setPhoneError("Número invàlid. Ha de tenir 9 dígits i començar per 6, 7 o 9.");
-      return;
+      hasError = true;
     }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      setEmailError("Correu electrònic invàlid.");
+      hasError = true;
+    }
+
+    if (hasError) return;
 
     setIsSubmitting(true);
 
@@ -100,6 +106,7 @@ export default function Home() {
           nom: formData.nom,
           cognoms: formData.cognoms,
           telefon: parseInt(formData.telefon, 10),
+          email: formData.email,
         }),
       });
 
@@ -119,10 +126,6 @@ export default function Home() {
       setIsSubmitting(false);
     }
   };
-
-  if (showAnimation) {
-    return <MarionetteAnimation onAnimationEnd={handleAnimationEnd} />;
-  }
 
   if (showFinalPhoto) {
     return (
@@ -144,7 +147,7 @@ export default function Home() {
     <main className="min-h-screen flex flex-col items-center justify-center bg-black p-4">
       <div className="w-full max-w-md bg-black border border-white rounded-lg p-8">
         <h1 className="text-2xl font-bold text-center text-white mb-6">
-          12/02, XX:XX,???
+          12/03: Axerum Vilanova, 22:30
         </h1>
 
         {message && (
@@ -212,6 +215,27 @@ export default function Home() {
             )}
           </div>
 
+          <div>
+            <label htmlFor="email" className="block text-sm font-medium text-white mb-1">
+              Correu electrònic
+            </label>
+            <input
+              type="email"
+              id="email"
+              value={formData.email}
+              onChange={(e) => {
+                setFormData({ ...formData, email: e.target.value });
+                setEmailError(null);
+              }}
+              required
+              className="w-full px-3 py-2 border border-white rounded-md bg-black text-white focus:outline-none focus:ring-2 focus:ring-white placeholder-gray-500"
+              placeholder="nom@exemple.com"
+            />
+            {emailError && (
+              <p className="text-red-500 text-sm mt-1">{emailError}</p>
+            )}
+          </div>
+
           <p className="text-xs text-gray-400 text-center">
             Festa privada. +18.
           </p>
@@ -226,7 +250,8 @@ export default function Home() {
         </form>
       </div>
       <p className="text-sm text-gray-400 text-center mt-4">
-        15€ barra lliure, s'està omplint...
+        Entrada gratuïta abans de les 12 amb inscripció.<br />
+        2x1 en cubates abans de les 00:00.
       </p>
     </main>
   );
