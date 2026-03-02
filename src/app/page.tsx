@@ -23,14 +23,19 @@ function calcTimeLeft() {
 }
 
 function Countdown() {
-  // Initialize with correct value immediately — avoids flash of zeros on first render
-  const [timeLeft, setTimeLeft] = useState(calcTimeLeft);
+  // undefined = not yet hydrated (server + client render the same empty state)
+  // null      = event has started
+  // object    = countdown running
+  const [timeLeft, setTimeLeft] = useState<ReturnType<typeof calcTimeLeft> | undefined>(undefined);
 
   useEffect(() => {
+    // Only runs on the client — avoids server/client hydration mismatch
+    setTimeLeft(calcTimeLeft());
     const interval = setInterval(() => setTimeLeft(calcTimeLeft()), 1000);
     return () => clearInterval(interval);
   }, []);
 
+  if (timeLeft === undefined) return null;
   if (!timeLeft) {
     return <p className="text-white text-center mt-6 text-lg font-bold">Gaudeix de la festa!</p>;
   }
