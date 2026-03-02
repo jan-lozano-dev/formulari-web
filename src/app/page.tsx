@@ -179,13 +179,8 @@ export default function Home() {
     <main className="min-h-screen flex flex-col items-center justify-center bg-black p-4">
       <div className="w-full max-w-md bg-black border border-white rounded-lg p-8">
         <h1 className="text-2xl font-bold text-center text-white mb-2">
-          Axerum Vilanova: 12/03, 22:30
+          Huerto x Axerum: 12/03, 22:30
         </h1>
-        {remaining !== null && (
-          <p className={`text-center text-sm mb-4 ${remaining < 50 ? "text-red-400" : "text-gray-400"}`}>
-            {remaining < 50 ? `Queden ${remaining} llocs!` : `Queden ${remaining} llocs`}
-          </p>
-        )}
 
         {message && (
           <div
@@ -311,8 +306,9 @@ export default function Home() {
         </form>
       </div>
       <p className="text-sm text-gray-400 text-center mt-4">
-        Entrada gratuïta abans de les 12 amb inscripció i carnet universitari.<br />
-        2x1 en cubates abans de les 00:00.
+        Entrada 8€.<br />
+        Abans de les 00:00, 2 consumicions amb l&apos;entrada.<br />
+        Més tard de les 00:00, 1 consumició.
       </p>
     </main>
   );
