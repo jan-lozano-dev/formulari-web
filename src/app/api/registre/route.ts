@@ -1,8 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getDb } from "@/lib/db";
 import { isRateLimited } from "@/lib/rateLimit";
-
-const MAX_CAPACITY = 1000;
+import { MAX_CAPACITY } from "@/lib/constants";
 
 export async function POST(request: NextRequest) {
   // Rate limit by IP — prevents spam registrations

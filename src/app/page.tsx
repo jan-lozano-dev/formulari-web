@@ -12,7 +12,7 @@ function Countdown() {
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
 
   useEffect(() => {
-    const targetDate = new Date("2026-02-12T00:00:00").getTime();
+    const targetDate = new Date("2026-03-12T00:00:00").getTime();
 
     const updateCountdown = () => {
       const now = new Date().getTime();
@@ -73,8 +73,17 @@ export default function Home() {
   const [showFinalPhoto, setShowFinalPhoto] = useState(false);
   const [phoneError, setPhoneError] = useState<string | null>(null);
   const [emailError, setEmailError] = useState<string | null>(null);
+  const [remaining, setRemaining] = useState<number | null>(null);
   // Honeypot ref: hidden from real users, bots will fill it automatically
   const honeypotRef = useRef<HTMLInputElement>(null);
+
+  // Fetch remaining spots on load
+  useEffect(() => {
+    fetch("/api/registre/count")
+      .then((r) => r.json())
+      .then((data) => setRemaining(data.remaining))
+      .catch(() => null);
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -132,6 +141,18 @@ export default function Home() {
     }
   };
 
+  // Show full capacity screen before rendering the form
+  if (remaining === 0) {
+    return (
+      <main className="min-h-screen flex flex-col items-center justify-center bg-black p-4">
+        <div className="w-full max-w-md bg-black border border-white rounded-lg p-8 text-center">
+          <h1 className="text-2xl font-bold text-white mb-4">Aforament complet</h1>
+          <p className="text-gray-400">Gràcies pel teu interès. Les inscripcions estan tancades.</p>
+        </div>
+      </main>
+    );
+  }
+
   if (showFinalPhoto) {
     return (
       <main className="min-h-screen flex flex-col items-center justify-center bg-black p-4">
@@ -151,9 +172,14 @@ export default function Home() {
   return (
     <main className="min-h-screen flex flex-col items-center justify-center bg-black p-4">
       <div className="w-full max-w-md bg-black border border-white rounded-lg p-8">
-        <h1 className="text-2xl font-bold text-center text-white mb-6">
+        <h1 className="text-2xl font-bold text-center text-white mb-2">
           Axerum Vilanova: 12/03, 22:30
         </h1>
+        {remaining !== null && (
+          <p className={`text-center text-sm mb-4 ${remaining < 50 ? "text-red-400" : "text-gray-400"}`}>
+            {remaining < 50 ? `⚠ Queden ${remaining} llocs!` : `Queden ${remaining} llocs`}
+          </p>
+        )}
 
         {message && (
           <div
@@ -180,7 +206,7 @@ export default function Home() {
               required
               maxLength={100}
               className="w-full px-3 py-2 border border-white rounded-md bg-black text-white focus:outline-none focus:ring-2 focus:ring-white placeholder-gray-500"
-              placeholder="hola"
+              placeholder="Joan"
             />
           </div>
 
@@ -261,7 +287,7 @@ export default function Home() {
 
           <button
             type="submit"
-            disabled={isSubmitting}
+            disabled={isSubmitting || !formData.nom || !formData.cognoms || !formData.telefon || !formData.email}
             className="w-full bg-white text-black py-2 px-4 rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-black disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
           >
             {isSubmitting ? "Enviant..." : "Enviar"}
