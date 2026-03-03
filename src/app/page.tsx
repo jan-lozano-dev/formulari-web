@@ -307,7 +307,8 @@ export default function Home() {
       </div>
       <p className="text-sm text-gray-400 text-center mt-4">
         Entrada gratuïta abans de les 12 amb inscripció i carnet universitari<br />
-        2x1 en cubates abans de les 00:00
+        2x1 en copes/birra abans de les 00:00<br />
+        Passades les 00:00, entrada 8€ amb una consumició
       </p>
     </main>
   );
