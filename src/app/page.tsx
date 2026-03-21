@@ -37,32 +37,34 @@ function Countdown() {
 
   if (timeLeft === undefined) return null;
   if (!timeLeft) {
-    return <p className="text-white text-center mt-6 text-lg font-bold">Gaudeix de la festa!</p>;
+    return (
+      <p className="text-center mt-8 flicker" style={{ color: '#9eff00', fontFamily: '"Extenda 100 Yotta", sans-serif', fontSize: '1.8rem', letterSpacing: '0.1em', textShadow: '0 0 30px rgba(158,255,0,0.4)' }}>
+        GAUDEIX DE LA FESTA
+      </p>
+    );
   }
 
   return (
-    <div className="text-white text-center mt-6">
-      <p className="text-sm text-gray-400 mb-2">Queda...</p>
-      <div className="flex justify-center gap-4 text-2xl font-bold">
-        <div className="flex flex-col items-center">
-          <span>{timeLeft.days}</span>
-          <span className="text-xs text-gray-400">dies</span>
-        </div>
-        <span>:</span>
-        <div className="flex flex-col items-center">
-          <span>{String(timeLeft.hours).padStart(2, "0")}</span>
-          <span className="text-xs text-gray-400">hores</span>
-        </div>
-        <span>:</span>
-        <div className="flex flex-col items-center">
-          <span>{String(timeLeft.minutes).padStart(2, "0")}</span>
-          <span className="text-xs text-gray-400">min</span>
-        </div>
-        <span>:</span>
-        <div className="flex flex-col items-center">
-          <span>{String(timeLeft.seconds).padStart(2, "0")}</span>
-          <span className="text-xs text-gray-400">seg</span>
-        </div>
+    <div className="text-center mt-8">
+      <p style={{ color: 'rgba(158,255,0,0.4)', fontSize: '0.65rem', letterSpacing: '0.3em', textTransform: 'uppercase', marginBottom: '1rem' }}>
+        Queda
+      </p>
+      <div className="flex justify-center gap-6">
+        {[
+          { value: String(timeLeft.days), label: 'dies' },
+          { value: String(timeLeft.hours).padStart(2, '0'), label: 'hores' },
+          { value: String(timeLeft.minutes).padStart(2, '0'), label: 'min' },
+          { value: String(timeLeft.seconds).padStart(2, '0'), label: 'seg' },
+        ].map(({ value, label }) => (
+          <div key={label} className="flex flex-col items-center gap-1">
+            <span style={{ color: '#9eff00', fontFamily: '"Extenda 100 Yotta", sans-serif', fontSize: '3rem', lineHeight: 1, textShadow: '0 0 20px rgba(158,255,0,0.5)' }}>
+              {value}
+            </span>
+            <span style={{ color: 'rgba(158,255,0,0.35)', fontSize: '0.6rem', letterSpacing: '0.2em', textTransform: 'uppercase' }}>
+              {label}
+            </span>
+          </div>
+        ))}
       </div>
     </div>
   );
@@ -151,10 +153,17 @@ export default function Home() {
   // Show full capacity screen before rendering the form
   if (remaining === 0) {
     return (
-      <main className="min-h-screen flex flex-col items-center justify-center bg-black p-4">
-        <div className="w-full max-w-md bg-black border border-white rounded-lg p-8 text-center">
-          <h1 className="text-2xl font-bold text-white mb-4">Aforament complet</h1>
-          <p className="text-gray-400">Gràcies pel teu interès. Les inscripcions estan tancades.</p>
+      <main className="min-h-screen flex flex-col items-center justify-center bg-black p-4 scanline">
+        <div className="fade-up text-center">
+          <p style={{ color: 'rgba(158,255,0,0.4)', fontSize: '0.65rem', letterSpacing: '0.3em', textTransform: 'uppercase', marginBottom: '1.5rem' }}>
+            — accés tancat —
+          </p>
+          <h1 style={{ color: '#9eff00', fontFamily: '"Extenda 100 Yotta", sans-serif', fontSize: 'clamp(3.5rem, 18vw, 7rem)', lineHeight: 0.88, textShadow: '0 0 60px rgba(158,255,0,0.25)' }}>
+            AFORAMENT<br />COMPLET
+          </h1>
+          <p style={{ color: 'rgba(158,255,0,0.3)', marginTop: '2rem', fontSize: '0.8rem', letterSpacing: '0.08em' }}>
+            Gràcies pel teu interès.<br />Les inscripcions estan tancades.
+          </p>
         </div>
       </main>
     );
@@ -162,42 +171,65 @@ export default function Home() {
 
   if (showFinalPhoto) {
     return (
-      <main className="min-h-screen flex flex-col items-center justify-center bg-black p-4">
-        <Image
-          src="/fotoAxerumGranFinal.jpeg"
-          alt="Registre completat"
-          width={500}
-          height={500}
-          className="max-w-full h-auto"
-        />
-        <Countdown />
+      <main className="min-h-screen flex flex-col items-center justify-center bg-black p-4 scanline">
+        <div className="fade-up w-full max-w-sm">
+          <div style={{ border: '1px solid rgba(158,255,0,0.25)', boxShadow: '0 0 60px rgba(158,255,0,0.08)' }}>
+            <Image
+              src="/fotoAxerumGranFinal.jpeg"
+              alt="Registre completat"
+              width={500}
+              height={500}
+              className="max-w-full h-auto block"
+            />
+          </div>
+          <Countdown />
+        </div>
       </main>
     );
   }
 
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center bg-black p-4">
-      <div className="w-full max-w-md bg-black border border-white rounded-lg p-8">
-        <h1 className="text-2xl font-bold text-center mb-2" style={{ color: '#9eff00', fontFamily: '"Extenda 100 Yotta", sans-serif' }}>
-          Llista Convidats Huerto
+    <main className="min-h-screen flex flex-col items-center justify-center bg-black px-6 py-10 scanline">
+
+      {/* Top divider */}
+      <div className="w-full max-w-md mb-6 fade-up" style={{ animationDelay: '0ms' }}>
+        <div className="flex items-center gap-3">
+          <div className="flex-1 h-px" style={{ background: 'rgba(158, 255, 0, 0.2)' }} />
+          <span style={{ color: 'rgba(158, 255, 0, 0.45)', fontFamily: '"Extenda 100 Yotta", sans-serif', fontSize: '0.7rem', letterSpacing: '0.25em', textTransform: 'uppercase' }}>
+            accés privat
+          </span>
+          <div className="flex-1 h-px" style={{ background: 'rgba(158, 255, 0, 0.2)' }} />
+        </div>
+      </div>
+
+      {/* Title */}
+      <div className="w-full max-w-md mb-8 fade-up flicker" style={{ animationDelay: '80ms' }}>
+        <h1 style={{ fontFamily: '"Extenda 100 Yotta", sans-serif', color: '#9eff00', fontSize: 'clamp(3rem, 14vw, 5.5rem)', lineHeight: 0.88, letterSpacing: '-0.01em', textShadow: '0 0 80px rgba(158, 255, 0, 0.18)' }}>
+          LLISTA<br />CONVIDATS<br />HUERTO
         </h1>
+      </div>
+
+      {/* Form container */}
+      <div className="w-full max-w-md relative fade-up" style={{ animationDelay: '160ms', border: '1px solid rgba(158, 255, 0, 0.18)', padding: '2rem', background: 'rgba(158, 255, 0, 0.015)' }}>
+        {/* Corner brackets */}
+        <span style={{ position: 'absolute', top: -1, left: -1, display: 'block', width: 10, height: 10, borderTop: '2px solid #9eff00', borderLeft: '2px solid #9eff00' }} />
+        <span style={{ position: 'absolute', top: -1, right: -1, display: 'block', width: 10, height: 10, borderTop: '2px solid #9eff00', borderRight: '2px solid #9eff00' }} />
+        <span style={{ position: 'absolute', bottom: -1, left: -1, display: 'block', width: 10, height: 10, borderBottom: '2px solid #9eff00', borderLeft: '2px solid #9eff00' }} />
+        <span style={{ position: 'absolute', bottom: -1, right: -1, display: 'block', width: 10, height: 10, borderBottom: '2px solid #9eff00', borderRight: '2px solid #9eff00' }} />
 
         {message && (
           <div
             role="alert"
-            className={`mb-4 p-3 rounded border ${
-              message.type === "success"
-                ? "border-white text-white"
-                : "border-gray-500 text-gray-300"
-            }`}
+            className="mb-6 p-3 text-xs tracking-wider"
+            style={{ border: '1px solid', borderColor: message.type === 'error' ? 'rgba(255,80,80,0.4)' : 'rgba(158,255,0,0.4)', color: message.type === 'error' ? '#ff6060' : '#9eff00', background: message.type === 'error' ? 'rgba(255,80,80,0.05)' : 'rgba(158,255,0,0.05)' }}
           >
             {message.text}
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-7">
           <div>
-            <label htmlFor="nom" className="block text-sm font-medium text-white mb-1">
+            <label htmlFor="nom" className="block mb-2" style={{ color: 'rgba(158, 255, 0, 0.5)', fontSize: '0.65rem', letterSpacing: '0.2em', textTransform: 'uppercase' }}>
               Nom
             </label>
             <input
@@ -208,13 +240,13 @@ export default function Home() {
               required
               maxLength={100}
               autoComplete="given-name"
-              className="w-full px-3 py-2 border border-white rounded-md bg-black text-white focus:outline-none focus:ring-2 focus:ring-white placeholder-gray-500"
+              className="neon-input"
               placeholder="Joan"
             />
           </div>
 
           <div>
-            <label htmlFor="cognoms" className="block text-sm font-medium text-white mb-1">
+            <label htmlFor="cognoms" className="block mb-2" style={{ color: 'rgba(158, 255, 0, 0.5)', fontSize: '0.65rem', letterSpacing: '0.2em', textTransform: 'uppercase' }}>
               Cognoms
             </label>
             <input
@@ -225,14 +257,14 @@ export default function Home() {
               required
               maxLength={100}
               autoComplete="family-name"
-              className="w-full px-3 py-2 border border-white rounded-md bg-black text-white focus:outline-none focus:ring-2 focus:ring-white placeholder-gray-500"
-              placeholder="Corre a apuntar-te..."
+              className="neon-input"
+              placeholder="Garcia"
             />
           </div>
 
           <div>
-            <label htmlFor="telefon" className="block text-sm font-medium text-white mb-1">
-              Número de telèfon
+            <label htmlFor="telefon" className="block mb-2" style={{ color: 'rgba(158, 255, 0, 0.5)', fontSize: '0.65rem', letterSpacing: '0.2em', textTransform: 'uppercase' }}>
+              Telèfon
             </label>
             <input
               type="tel"
@@ -248,17 +280,17 @@ export default function Home() {
               autoComplete="tel"
               aria-invalid={!!phoneError}
               aria-describedby={phoneError ? "telefon-error" : undefined}
-              className="w-full px-3 py-2 border border-white rounded-md bg-black text-white focus:outline-none focus:ring-2 focus:ring-white placeholder-gray-500"
-              placeholder="Escriu el teu número bé..."
+              className="neon-input"
+              placeholder="6XX XXX XXX"
             />
             {phoneError && (
-              <p id="telefon-error" role="alert" className="text-red-500 text-sm mt-1">{phoneError}</p>
+              <p id="telefon-error" role="alert" className="mt-2 text-xs tracking-wide" style={{ color: '#ff6060' }}>{phoneError}</p>
             )}
           </div>
 
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-white mb-1">
-              Correu electrònic
+            <label htmlFor="email" className="block mb-2" style={{ color: 'rgba(158, 255, 0, 0.5)', fontSize: '0.65rem', letterSpacing: '0.2em', textTransform: 'uppercase' }}>
+              Correu
             </label>
             <input
               type="email"
@@ -273,15 +305,15 @@ export default function Home() {
               autoComplete="email"
               aria-invalid={!!emailError}
               aria-describedby={emailError ? "email-error" : undefined}
-              className="w-full px-3 py-2 border border-white rounded-md bg-black text-white focus:outline-none focus:ring-2 focus:ring-white placeholder-gray-500"
+              className="neon-input"
               placeholder="nom@exemple.com"
             />
             {emailError && (
-              <p id="email-error" role="alert" className="text-red-500 text-sm mt-1">{emailError}</p>
+              <p id="email-error" role="alert" className="mt-2 text-xs tracking-wide" style={{ color: '#ff6060' }}>{emailError}</p>
             )}
           </div>
 
-          {/* Honeypot: invisible to users, bots fill it and get silently rejected */}
+          {/* Honeypot */}
           <input
             ref={honeypotRef}
             type="text"
@@ -292,22 +324,25 @@ export default function Home() {
             style={{ display: "none" }}
           />
 
-          <p className="text-xs text-gray-400 text-center">
-            Festa privada. +18.
+          <p className="text-center" style={{ color: 'rgba(158, 255, 0, 0.22)', fontSize: '0.65rem', letterSpacing: '0.2em', textTransform: 'uppercase' }}>
+            Festa privada · +18
           </p>
 
           <button
             type="submit"
             disabled={isSubmitting || !formData.nom || !formData.cognoms || !formData.telefon || !formData.email}
-            className="w-full bg-white text-black py-2 px-4 rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-black disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            className="neon-btn"
           >
-            {isSubmitting ? "Enviant..." : "Enviar"}
+            {isSubmitting ? "ENVIANT..." : "REGISTRAR"}
           </button>
         </form>
       </div>
-      <p className="text-sm text-center mt-4" style={{ color: '#9eff00', fontFamily: '"Extenda 100 Yotta", sans-serif' }}>
+
+      {/* Bottom text */}
+      <p className="mt-6 fade-up" style={{ animationDelay: '280ms', color: '#9eff00', fontFamily: '"Extenda 100 Yotta", sans-serif', fontSize: '0.9rem', letterSpacing: '0.15em' }}>
         més info per privat
       </p>
+
     </main>
   );
 }
