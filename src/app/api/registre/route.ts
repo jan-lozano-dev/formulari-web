@@ -28,10 +28,20 @@ export async function POST(request: NextRequest) {
     const nom = typeof body.nom === "string" ? body.nom.trim() : "";
     const cognoms = typeof body.cognoms === "string" ? body.cognoms.trim() : "";
     const email = typeof body.email === "string" ? body.email.trim().toLowerCase() : "";
+    const genere = typeof body.genere === "string" ? body.genere.trim() : "";
 
-    if (!nom || !cognoms || telefon === undefined || !email) {
+    const GENERES_VALIDS = ["Home", "Dona", "Prefereixo no dir-ho"];
+
+    if (!nom || !cognoms || telefon === undefined || !email || !genere) {
       return NextResponse.json(
         { message: "Tots els camps són obligatoris" },
+        { status: 400 }
+      );
+    }
+
+    if (!GENERES_VALIDS.includes(genere)) {
+      return NextResponse.json(
+        { message: "Valor de gènere no vàlid." },
         { status: 400 }
       );
     }
@@ -89,8 +99,8 @@ export async function POST(request: NextRequest) {
     }
 
     await sql`
-      INSERT INTO registres (nom, cognoms, telefon, email)
-      VALUES (${nom}, ${cognoms}, ${telefon}, ${email})
+      INSERT INTO registres (nom, cognoms, telefon, email, genere)
+      VALUES (${nom}, ${cognoms}, ${telefon}, ${email}, ${genere})
     `;
 
     return NextResponse.json({ message: "Registre creat correctament" }, { status: 201 });

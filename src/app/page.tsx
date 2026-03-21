@@ -75,6 +75,7 @@ export default function Home() {
     cognoms: "",
     telefon: "",
     email: "",
+    genere: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
@@ -124,6 +125,7 @@ export default function Home() {
           cognoms: formData.cognoms,
           telefon: parseInt(formData.telefon.replace(/\s/g, ""), 10),
           email: formData.email,
+          genere: formData.genere,
           website: honeypotRef.current?.value ?? "",
         }),
       });
@@ -275,6 +277,24 @@ export default function Home() {
           </div>
 
           <div>
+            <label htmlFor="genere" className="block mb-2" style={{ color: 'rgba(158, 255, 0, 0.5)', fontSize: '0.65rem', letterSpacing: '0.2em', textTransform: 'uppercase' }}>
+              Gènere
+            </label>
+            <select
+              id="genere"
+              value={formData.genere}
+              onChange={(e) => setFormData({ ...formData, genere: e.target.value })}
+              required
+              className="neon-select"
+            >
+              <option value="" disabled>—</option>
+              <option value="Home">Home</option>
+              <option value="Dona">Dona</option>
+              <option value="Prefereixo no dir-ho">Prefereixo no dir-ho</option>
+            </select>
+          </div>
+
+          <div>
             <label htmlFor="telefon" className="block mb-2" style={{ color: 'rgba(158, 255, 0, 0.5)', fontSize: '0.65rem', letterSpacing: '0.2em', textTransform: 'uppercase' }}>
               Telèfon
             </label>
@@ -342,7 +362,7 @@ export default function Home() {
 
           <button
             type="submit"
-            disabled={isSubmitting || !formData.nom || !formData.cognoms || !formData.telefon || !formData.email}
+            disabled={isSubmitting || !formData.nom || !formData.cognoms || !formData.telefon || !formData.email || !formData.genere}
             className="neon-btn"
           >
             {isSubmitting ? "ENVIANT..." : "REGISTRAR"}
